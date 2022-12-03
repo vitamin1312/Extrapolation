@@ -128,6 +128,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Extrapolation.cpp" />
+    <ClCompile Include="mnk_reg.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="mnk_reg.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

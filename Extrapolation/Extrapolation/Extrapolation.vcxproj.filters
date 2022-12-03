@@ -18,5 +18,13 @@
     <ClCompile Include="Extrapolation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="mnk_reg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="mnk_reg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
