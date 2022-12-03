@@ -17,6 +17,17 @@ double mae(std::vector<double> y_true, std::vector<double> y_predicted) {
 }
 
 
+double SMAPE(std::vector<double> y_true, std::vector<double> y_predicted) {
+    double smape = 0;
+
+    for (int i(0); i < y_true.size(); ++i) {
+        smape += abs(y_true[i] - y_predicted[i]) / ((abs(y_true[i] + abs(y_predicted[i]))) / 2);
+    }
+
+    return smape / y_true.size() * 100;
+}
+
+
 std::ostream& operator << (std::ostream& out, std::vector<double>& vect) {
     for (double elem : vect) {
         std::cout << elem << ' ';
@@ -66,7 +77,7 @@ std::pair<std::vector<double>, std::vector<double>> split_vector(std::vector<dou
 int main()
 {
 
-    std::vector<std::string> file_names = {"0", "1", "2", "3", "4", "5"};
+    std::vector<std::string> file_names = {"0", "1", "2", "3", "4"};
 
     std::vector<double> x, y, x_train, y_train, x_test, y_test, prediction;
 
@@ -74,7 +85,7 @@ int main()
     for (std::string& name : file_names) {
         auto x_y = read_file("data/" + name);
 
-        mnk_reg LSE(3, 0);
+        mnk_reg LSE(3, 1);
 
         x = x_y.first;
         y = x_y.second;
@@ -87,11 +98,14 @@ int main()
 
         prediction = LSE.fit_predict(x_train, y_train);
         
-        std::cout << mae(y_train, prediction) << std::endl;
+        std::cout << "mae error in file " << name << ": " << mae(y_train, prediction) << std::endl;
+        std::cout << "SMAPE error in file " << name << ": " << SMAPE(y_train, prediction) << "%" << std::endl << std::endl;
     }
-  
 
+    std::vector<double> y_1 = { 3, -0.5, 2, 7 };
+    std::vector<double> y_2 = { 2.5, 0.0, 2, 8 };
 
+    std::cout << "_______________________" << std::endl << SMAPE(y_1, y_2);
 
-
+    return 0;
 }
