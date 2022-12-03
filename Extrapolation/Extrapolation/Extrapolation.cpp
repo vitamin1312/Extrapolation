@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include "math.h"
+#include "mnk_reg.h"
 
 
 double mae(std::vector<double> y_true, std::vector<double> y_predicted) {
@@ -64,25 +65,33 @@ std::pair<std::vector<double>, std::vector<double>> split_vector(std::vector<dou
 
 int main()
 {
-    auto x_y = read_file("data/1");
-    std::vector<double> x, y, x_train, y_train, x_test, y_test;
 
-    x = x_y.first;
-    y = x_y.second;
+    std::vector<std::string> file_names = {"0", "1", "2", "3", "4", "5"};
 
-    auto x_train_test = split_vector(x);
-    auto y_train_test = split_vector(y);
+    std::vector<double> x, y, x_train, y_train, x_test, y_test, prediction;
 
-    x_train = x_train_test.first;
-    x_test = x_train_test.second;
 
-    y_train = y_train_test.first;
-    y_test = y_train_test.second;
+    for (std::string& name : file_names) {
+        auto x_y = read_file("data/" + name);
 
-    /*
-    prediction = Extrapolator(x_train, y_train, x_test)
+        mnk_reg LSE(3, 0);
 
-    std::cout << "mae of this method: " << mae(y_test, prediction) << std::endl;
-    */   
+        x = x_y.first;
+        y = x_y.second;
+        auto x_train_test = split_vector(x);
+        auto y_train_test = split_vector(y);
+        x_train = x_train_test.first;
+        x_test = x_train_test.second;
+        y_train = y_train_test.first;
+        y_test = y_train_test.second;
+
+        prediction = LSE.fit_predict(x_train, y_train);
+        
+        std::cout << mae(y_train, prediction) << std::endl;
+    }
+  
+
+
+
 
 }
