@@ -10,11 +10,19 @@ private:
 	int lmd = 0;
 	std::vector <double> K;
 public:
+
+	mnk_reg(int pow, int l)
+	{
+		power = pow;
+		lmd = l;
+	}
+
 	std::vector <double> solve_matrix( std::vector<std::vector<double>>& a,  std::vector<double> &b);
 
-	std::vector<double> fit(std::vector<double> X, std::vector<double> Y);
+	void fit(std::vector<double> X, std::vector<double> Y);
 
 	std::vector<double> predict(std::vector<double> X);
 
+	std:: vector<double> fit_predict(std::vector<double>X, std::vector<double>Y);
 };
 
