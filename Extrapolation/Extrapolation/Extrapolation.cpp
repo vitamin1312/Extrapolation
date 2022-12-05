@@ -21,10 +21,32 @@ double SMAPE(std::vector<double> y_true, std::vector<double> y_predicted) {
     double smape = 0;
 
     for (int i(0); i < y_true.size(); ++i) {
-        smape += abs(y_true[i] - y_predicted[i]) / ((abs(y_true[i] + abs(y_predicted[i]))) / 2);
+        smape += abs(y_true[i] - y_predicted[i]) / ((abs(y_true[i]) + abs(y_predicted[i])) / 2);
     }
 
     return smape / y_true.size() * 100;
+}
+
+
+double r2_score(std::vector<double> y_true, std::vector<double> y_predicted) {
+    double mean = 0;
+
+
+    for (int i(0); i < y_true.size(); ++i) {
+        mean += y_true[i];
+    }
+
+    mean = mean / y_true.size();
+
+    double ss_res = 0;
+    double ss_tot = 0;
+
+    for (int i(0); i < y_true.size(); ++i) {
+        ss_res += (y_true[i] - y_predicted[i]) * (y_true[i] - y_predicted[i]);
+        ss_tot += (y_true[i] - mean) * (y_true[i] - mean);
+    }
+
+    return 1 - ss_res / ss_tot;
 }
 
 
@@ -99,13 +121,9 @@ int main()
         prediction = LSE.fit_predict(x_train, y_train);
         
         std::cout << "mae error in file " << name << ": " << mae(y_train, prediction) << std::endl;
-        std::cout << "SMAPE error in file " << name << ": " << SMAPE(y_train, prediction) << "%" << std::endl << std::endl;
+        std::cout << "r2 score in file " << name << ": " << r2_score(y_train, prediction) << std::endl;
+        std::cout << "SMAPE in file " << name << ": " << SMAPE(y_train, prediction) << "%" << std::endl << std::endl;
     }
-
-    std::vector<double> y_1 = { 3, -0.5, 2, 7 };
-    std::vector<double> y_2 = { 2.5, 0.0, 2, 8 };
-
-    std::cout << "_______________________" << std::endl << SMAPE(y_1, y_2);
 
     return 0;
 }
