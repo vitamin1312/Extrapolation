@@ -104,8 +104,8 @@ vector<double> mnk_reg:: predict(vector<double> X)
     return Y;
 }
 
-vector<double> mnk_reg::fit_predict(std::vector<double>X, std::vector<double>Y)
+vector<double> mnk_reg::fit_predict(std::vector<double>X, std::vector<double>Y, std::vector<double> x_test)
 {
     fit(X,Y);
-    return predict(X);
+    return predict(x_test);
 }

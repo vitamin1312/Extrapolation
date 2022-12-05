@@ -23,6 +23,6 @@ public:
 
 	std::vector<double> predict(std::vector<double> X);
 
-	std:: vector<double> fit_predict(std::vector<double>X, std::vector<double>Y);
+	std:: vector<double> fit_predict(std::vector<double>X, std::vector<double>Y, std::vector<double> x_test);
 };
 
