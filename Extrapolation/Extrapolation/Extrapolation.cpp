@@ -87,6 +87,34 @@ std::pair<std::vector<double>, std::vector<double>> read_file(std::string file_p
 }
 
 
+void write_file(std::string file_path, std::vector<double> x_test, std::vector<double> y_test, std::vector<double> prediction) {
+    std::ofstream fout;
+    fout.open(file_path);
+
+    if (fout.is_open()) {
+        for (double x : x_test) {
+            fout << x << ' ';
+        }
+
+        fout << std::endl;
+
+
+        for (double y : y_test) {
+            fout << y << ' ';
+        }
+
+        fout << std::endl;
+
+
+        for (double pred : prediction) {
+            fout << pred << ' ';
+        }
+
+        fout << std::endl;
+    }
+}
+
+
 std::pair<std::vector<double>, std::vector<double>> split_vector(std::vector<double> vect, double split = 0.7) {
     std::size_t const half_size = (int)(vect.size() * 0.7);
     std::vector<double> down(vect.begin(), vect.begin() + half_size);
@@ -107,7 +135,7 @@ int main()
     for (std::string& name : file_names) {
         auto x_y = read_file("data/" + name);
 
-        mnk_reg LSE(3, 1);
+        mnk_reg LSE(5, 0.05);
 
         x = x_y.first;
         y = x_y.second;
@@ -118,12 +146,17 @@ int main()
         y_train = y_train_test.first;
         y_test = y_train_test.second;
 
-        prediction = LSE.fit_predict(x_train, y_train);
+        prediction = LSE.fit_predict(x_train, y_train, x_test);
+
+        write_file("data/" + name + "_test", x_test, y_test, prediction);
         
-        std::cout << "mae error in file " << name << ": " << mae(y_train, prediction) << std::endl;
-        std::cout << "r2 score in file " << name << ": " << r2_score(y_train, prediction) << std::endl;
-        std::cout << "SMAPE in file " << name << ": " << SMAPE(y_train, prediction) << "%" << std::endl << std::endl;
+        std::cout << "mean absolute error in file " << name << ": " << mae(y_test, prediction) << std::endl;
+        std::cout << "r2 score in file " << name << ": " << r2_score(y_test, prediction) << std::endl;
+        std::cout << "SMAPE in file " << name << ": " << SMAPE(y_test, prediction) << "%" << std::endl << std::endl;
+
     }
+
+    //system("python data/data_viz.py");
 
     return 0;
 }
