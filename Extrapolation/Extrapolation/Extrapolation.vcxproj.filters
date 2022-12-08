@@ -21,9 +21,15 @@
     <ClCompile Include="mnk_reg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="mnk_gradient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mnk_reg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mnk_gradient.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
