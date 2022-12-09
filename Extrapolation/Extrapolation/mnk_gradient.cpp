@@ -1,13 +1,6 @@
 #include "mnk_gradient.h"
 using namespace std;
 
-std::vector<double> mnk_gradient::predicted(std::vector<double> X)
-{
-	vector<double> pred;
-
-	return pred;
-}
-
 
 void mnk_gradient::Minimize(vector<double> X, vector<double> Y)
 {
@@ -35,4 +28,25 @@ void mnk_gradient::Minimize(vector<double> X, vector<double> Y)
 			params[k] -= lmd * grad[k];
 		iter++;
 	}
+}
+
+
+std::vector<double> mnk_gradient::Predicted(std::vector<double> X)
+{
+	vector<double> pred;
+	for (auto x_value : X)
+	{
+		double sum = 0;
+		for (int i = 0; i < params.size(); i++)
+			sum += params[i] * pow(x_value, i);
+		pred.push_back(sum);
+	}
+
+	return pred;
+}
+
+std::vector<double> mnk_gradient::PredictValues(std::vector<double> X, std::vector<double> Y, std::vector<double> x_test)
+{
+	Minimize(X, Y);
+	return Predicted(x_test);
 }

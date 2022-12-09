@@ -10,8 +10,9 @@ private:
 	std::vector<double> params;
 public:
 
-	std::vector<double> predicted(std::vector<double> X);
+	
 	void Minimize(std::vector<double> X, std::vector<double> Y);
-
+	std::vector<double> Predicted(std::vector<double> X);
+	std::vector<double> PredictValues(std::vector<double> X, std::vector<double> Y, std::vector<double> x_test);
 };
 
