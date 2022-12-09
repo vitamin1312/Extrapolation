@@ -6,7 +6,11 @@ void mnk_gradient::Minimize(vector<double> X, vector<double> Y)
 {
 	vector<double> grad;
 	for (int i = 0; i < power+1; i++)
-		params.push_back(i+1);
+	{
+		params.push_back(i + 1);
+		grad.push_back(0);
+	}
+
 	
 
 	int iter = 0;
