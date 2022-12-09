@@ -6,12 +6,12 @@
 class mnk_reg
 {
 private:
-	int power = 1;
-	int lmd = 0;
+	unsigned short int power = 1;
+	double lmd = 0;
 	std::vector <double> K;
 public:
 
-	mnk_reg(int pow, int l)
+	mnk_reg(unsigned short int pow, double l)
 	{
 		power = pow;
 		lmd = l;
@@ -24,5 +24,7 @@ public:
 	std::vector<double> predict(std::vector<double> X);
 
 	std:: vector<double> fit_predict(std::vector<double>X, std::vector<double>Y, std::vector<double> x_test);
+
+	void set_params(int count);
 };
 
