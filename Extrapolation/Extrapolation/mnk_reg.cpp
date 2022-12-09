@@ -106,6 +106,11 @@ vector<double> mnk_reg:: predict(vector<double> X)
 
 vector<double> mnk_reg::fit_predict(std::vector<double>X, std::vector<double>Y, std::vector<double> x_test)
 {
+    set_params(X.size());
     fit(X,Y);
     return predict(x_test);
+}
+void mnk_reg::set_params(int count)
+{
+    lmd *= count;
 }

@@ -135,7 +135,7 @@ int main()
     for (std::string& name : file_names) {
         auto x_y = read_file("data/" + name);
 
-        mnk_reg LSE(5, 0.05);
+        mnk_reg LSE(5, 0.7);
 
         x = x_y.first;
         y = x_y.second;
