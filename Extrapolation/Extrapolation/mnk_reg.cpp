@@ -113,5 +113,4 @@ vector<double> mnk_reg::fit_predict(std::vector<double>X, std::vector<double>Y, 
 void mnk_reg::set_params(int count)
 {
     lmd *= count;
-    std:: cout <<count<< " " << lmd << endl;
 }
