@@ -2,8 +2,10 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <chrono>
 #include "math.h"
 #include "mnk_reg.h"
+
 
 
 double mae(std::vector<double> y_true, std::vector<double> y_predicted) {
@@ -116,7 +118,7 @@ void write_file(std::string file_path, std::vector<double> x_test, std::vector<d
 
 
 std::pair<std::vector<double>, std::vector<double>> split_vector(std::vector<double> vect, double split = 0.7) {
-    std::size_t const half_size = (int)(vect.size() * 0.7);
+    std::size_t const half_size = (int)(vect.size() * 0.65);
     std::vector<double> down(vect.begin(), vect.begin() + half_size);
     std::vector<double> up(vect.begin() + half_size, vect.end());
 
@@ -135,8 +137,13 @@ int main()
     for (std::string& name : file_names) {
         auto x_y = read_file("data/" + name);
 
+<<<<<<< Updated upstream
         mnk_reg LSE(5, 0.7);
 
+=======
+        
+        // data
+>>>>>>> Stashed changes
         x = x_y.first;
         y = x_y.second;
         auto x_train_test = split_vector(x);
@@ -146,17 +153,24 @@ int main()
         y_train = y_train_test.first;
         y_test = y_train_test.second;
 
-        prediction = LSE.fit_predict(x_train, y_train, x_test);
+        // LSE with regularisation
+        mnk_reg LSE(-1, 0);  // 3 100
 
-        write_file("data/" + name + "_test", x_test, y_test, prediction);
-        
+        auto start = std::chrono::high_resolution_clock::now();
+        prediction = LSE.fit_predict(x_train, y_train, x_test);
+        auto stop = std::chrono::high_resolution_clock::now();
+
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+
+        std::cout << "LSE working: " << duration.count() << " microseconds" << std::endl;
         std::cout << "mean absolute error in file " << name << ": " << mae(y_test, prediction) << std::endl;
         std::cout << "r2 score in file " << name << ": " << r2_score(y_test, prediction) << std::endl;
         std::cout << "SMAPE in file " << name << ": " << SMAPE(y_test, prediction) << "%" << std::endl << std::endl;
 
+        write_file("data/" + name + "_test", x_test, y_test, prediction);
+
     }
 
-    //system("python data/data_viz.py");
 
     return 0;
 }
