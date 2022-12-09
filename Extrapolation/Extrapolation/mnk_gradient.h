@@ -4,13 +4,14 @@
 class mnk_gradient
 {
 private:
-	int rate=1;
-	double lmd;
+	int power=1;
+	int niter=100;
+	double lmd=0.01;
 	std::vector<double> params;
 public:
 
-	std::vector<double> predicted(std::vector<double> params);
-	std::vector<double> Minimize(std::vector<double> X, std::vector<double> Y, int power);
+	std::vector<double> predicted(std::vector<double> X);
+	void Minimize(std::vector<double> X, std::vector<double> Y);
 
 };
 

@@ -1,7 +1,7 @@
 #include "mnk_gradient.h"
 using namespace std;
 
-std::vector<double> mnk_gradient::predicted(std::vector<double> params)
+std::vector<double> mnk_gradient::predicted(std::vector<double> X)
 {
 	vector<double> pred;
 
@@ -9,32 +9,30 @@ std::vector<double> mnk_gradient::predicted(std::vector<double> params)
 }
 
 
-vector<double> mnk_gradient::Minimize(vector<double> X, vector<double> Y, int power)
+void mnk_gradient::Minimize(vector<double> X, vector<double> Y)
 {
-	vector<double> params;
 	vector<double> grad;
-	double eps = 0.1;
-	double appr = 0.1;
-	double gradsum;
 	for (int i = 0; i < power+1; i++)
-	{
 		params.push_back(i+1);
-		grad.push_back(i*params[i]*pow(X[i], i));
-	}
-	double polynom;
-	for (int j=0; j<Y.size(); j++)
+	
+
+	int iter = 0;
+	while (iter < niter)
 	{
-		if ((Y[j] - polynom) >= appr)
+		for (int p=0; p<params.size(); p++)
 		{
-			for (int i(0); i < params.size(); i++)
+			double psum = 0;
+			for (int i = 0; i < Y.size(); i++)
 			{
-				gradsum += pow(grad[i], 2);
-				params[i] -= eps/sqrt(gradsum) * grad[i];
-				grad[i] = (i * params[i] * pow(X[i], i));
-
+				double sum = -Y[i];
+				for (int j = 0; j < params.size(); j++)
+					sum += params[j] * pow(X[i], j);
+				psum += sum * pow(X[i], p);
 			}
+			grad[p] = psum;
 		}
+		for (int k = 0; k < params.size(); k++)
+			params[k] -= lmd * grad[k];
+		iter++;
 	}
-
-	return params;
 }
