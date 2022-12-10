@@ -29,7 +29,7 @@ void mnk_gradient::Minimize(vector<double> X, vector<double> Y)
 				psum += sum * pow(X[i], p);
 			}
 			grad[p] = psum;
-			gsum[p] = pow(psum, 2);
+			gsum[p] += pow(grad[p], 2);
 		}
 		for (int k = 0; k < params.size(); k++)
 			params[k] -= ((double)(lmd/sqrt(gsum[k]))) * grad[k];
