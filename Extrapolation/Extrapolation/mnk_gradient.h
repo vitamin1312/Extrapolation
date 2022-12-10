@@ -4,12 +4,17 @@
 class mnk_gradient
 {
 private:
-	int power=3;
-	int niter=10000;
-	double lmd=0.0000000000001;
+	int power=1;
+	int niter=1;
+	double lmd=0;
 	std::vector<double> params;
 public:
-
+	mnk_gradient(unsigned short int p, int n, double l)
+	{
+		power = p;
+		niter = n;
+		lmd = l;
+	}
 	
 	void Minimize(std::vector<double> X, std::vector<double> Y);
 	std::vector<double> Predicted(std::vector<double> X);

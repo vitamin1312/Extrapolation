@@ -5,10 +5,12 @@ using namespace std;
 void mnk_gradient::Minimize(vector<double> X, vector<double> Y)
 {
 	vector<double> grad;
+	vector<double> gsum;
 	for (int i = 0; i < power+1; i++)
 	{
 		params.push_back(i + 1);
 		grad.push_back(0);
+		gsum.push_back(0);
 	}
 
 	
@@ -27,9 +29,10 @@ void mnk_gradient::Minimize(vector<double> X, vector<double> Y)
 				psum += sum * pow(X[i], p);
 			}
 			grad[p] = psum;
+			gsum[p] = pow(psum, 2);
 		}
 		for (int k = 0; k < params.size(); k++)
-			params[k] -= lmd * grad[k];
+			params[k] -= ((double)(lmd/sqrt(gsum[k]))) * grad[k];
 		iter++;
 	}
 }
