@@ -24,12 +24,18 @@
     <ClCompile Include="mnk_gradient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="exp_smoothing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mnk_reg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="mnk_gradient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="exp_smoothing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
