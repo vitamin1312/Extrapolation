@@ -4,13 +4,11 @@ using namespace std;
 
 void mnk_gradient::Minimize(vector<double> X, vector<double> Y)
 {
-	vector<double> grad;
-	vector<double> gsum;
-	for (int i = 0; i < power+1; i++)
+	vector<double> grad(power+1);
+	vector<double> gsum(power+1);
+	for (int i(0); i < power+1; i++)
 	{
 		params.push_back(i + 1);
-		grad.push_back(0);
-		gsum.push_back(0);
 	}
 
 	
@@ -18,20 +16,20 @@ void mnk_gradient::Minimize(vector<double> X, vector<double> Y)
 	int iter = 0;
 	while (iter < niter)
 	{
-		for (int p=0; p<params.size(); p++)
+		for (int p(0); p<params.size(); p++)
 		{
 			double psum = 0;
-			for (int i = 0; i < Y.size(); i++)
+			for (int i(0); i < Y.size(); i++)
 			{
 				double sum = -Y[i];
-				for (int j = 0; j < params.size(); j++)
+				for (int j(0); j < params.size(); j++)
 					sum += params[j] * pow(X[i], j);
 				psum += sum * pow(X[i], p);
 			}
 			grad[p] = psum;
 			gsum[p] += pow(grad[p], 2);
 		}
-		for (int k = 0; k < params.size(); k++)
+		for (int k(0); k < params.size(); k++)
 			params[k] -= ((double)(lmd/sqrt(gsum[k]))) * grad[k];
 		iter++;
 	}
@@ -40,13 +38,13 @@ void mnk_gradient::Minimize(vector<double> X, vector<double> Y)
 
 std::vector<double> mnk_gradient::Predicted(std::vector<double> X)
 {
-	vector<double> pred;
-	for (auto x_value : X)
+	vector<double> pred(X.size());
+	for (int k(0); k<X.size();k++)
 	{
 		double sum = 0;
-		for (int i = 0; i < params.size(); i++)
-			sum += params[i] * pow(x_value, i);
-		pred.push_back(sum);
+		for (int i(0); i < params.size(); i++)
+			sum += params[i] * pow(X[i], i);
+		pred[k]=sum;
 	}
 
 	return pred;
