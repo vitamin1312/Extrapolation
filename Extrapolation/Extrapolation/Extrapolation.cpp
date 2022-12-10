@@ -9,47 +9,63 @@
 
 
 
-double mae(std::vector<double> y_true, std::vector<double> y_predicted) {
-    double mae = 0;
+long double mae(std::vector<double> y_true, std::vector<double> y_predicted) {
 
-    for (int i(0); i < y_true.size(); ++i) {
-        mae += abs(y_true[i] - y_predicted[i]);
+    if (y_true.size() == y_predicted.size()) {
+
+        long double mae = 0;
+
+        for (int i(0); i < y_true.size(); ++i) {
+            mae += abs(y_true[i] - y_predicted[i]);
+        }
+
+        return mae / y_true.size();
     }
 
-    return mae/y_true.size();
+    return -1;
 }
 
 
-double SMAPE(std::vector<double> y_true, std::vector<double> y_predicted) {
-    double smape = 0;
+long double SMAPE(std::vector<double> y_true, std::vector<double> y_predicted) {
 
-    for (int i(0); i < y_true.size(); ++i) {
-        smape += abs(y_true[i] - y_predicted[i]) / ((abs(y_true[i]) + abs(y_predicted[i])) / 2);
+    if (y_true.size() == y_predicted.size()) {
+
+        long double smape = 0;
+
+        for (int i(0); i < y_true.size(); ++i) {
+            smape += abs(y_true[i] - y_predicted[i]) / ((abs(y_true[i]) + abs(y_predicted[i])) / 2);
+        }
+
+        return smape / y_true.size() * 100;
     }
 
-    return smape / y_true.size() * 100;
+    return -1;
 }
 
 
-double r2_score(std::vector<double> y_true, std::vector<double> y_predicted) {
-    double mean = 0;
+long double r2_score(std::vector<double> y_true, std::vector<double> y_predicted) {
+    
+    if (y_true.size() == y_predicted.size()) {
+        long double mean = 0;
 
+        for (int i(0); i < y_true.size(); ++i) {
+            mean += y_true[i];
+        }
 
-    for (int i(0); i < y_true.size(); ++i) {
-        mean += y_true[i];
+        mean = mean / y_true.size();
+
+        long double ss_res = 0;
+        long double ss_tot = 0;
+
+        for (int i(0); i < y_true.size(); ++i) {
+            ss_res += (y_true[i] - y_predicted[i]) * (y_true[i] - y_predicted[i]);
+            ss_tot += (y_true[i] - mean) * (y_true[i] - mean);
+        }
+
+        return 1 - ss_res / ss_tot;
     }
 
-    mean = mean / y_true.size();
-
-    double ss_res = 0;
-    double ss_tot = 0;
-
-    for (int i(0); i < y_true.size(); ++i) {
-        ss_res += (y_true[i] - y_predicted[i]) * (y_true[i] - y_predicted[i]);
-        ss_tot += (y_true[i] - mean) * (y_true[i] - mean);
-    }
-
-    return 1 - ss_res / ss_tot;
+    return -1;
 }
 
 
@@ -65,10 +81,11 @@ std::pair<std::vector<double>, std::vector<double>> read_file(std::string file_p
     std::fstream fin;
     fin.open(file_path);
 
-    if (fin.is_open()) {
-        std::vector<double> x;
-        std::vector<double> y;
+    std::vector<double> x;
+    std::vector<double> y;
 
+    if (fin.is_open()) {
+        
         double value;
 
         do {
@@ -81,12 +98,16 @@ std::pair<std::vector<double>, std::vector<double>> read_file(std::string file_p
             y.push_back(value);
         } while (fin.peek() != '\n');
 
-        if (x.size() == y.size()) {
-            auto result = std::make_pair(x, y);
-
-            return result;
-        }
+        if (x.size() == y.size())
+            return std::make_pair(x, y);
     }
+
+    x.clear();
+    y.clear();
+
+    std::cout << "There are some problems with reading or with data" << std::endl;
+
+    return std::make_pair(x, y);
 }
 
 
@@ -115,6 +136,9 @@ void write_file(std::string file_path, std::vector<double> x_test, std::vector<d
 
         fout << std::endl;
     }
+
+    else
+        std::cout << "There is some problems with file" << std::endl;
 }
 
 
@@ -163,7 +187,7 @@ int main()
         std::cout << "r2 score in file " << name << ": " << r2_score(y_test, prediction) << std::endl;
         std::cout << "SMAPE in file " << name << ": " << SMAPE(y_test, prediction) << "%" << std::endl << std::endl;
 
-        write_file("data/" + name + "_test", x_test, y_test, prediction);
+        //write_file("data/" + name + "_test", x_test, y_test, prediction);
 
 
         // LSE with GD
@@ -180,7 +204,10 @@ int main()
         std::cout << "r2 score in file " << name << ": " << r2_score(y_test, prediction) << std::endl;
         std::cout << "SMAPE in file " << name << ": " << SMAPE(y_test, prediction) << "%" << std::endl << std::endl;
 
-        write_file("data/" + name + "_test", x_test, y_test, prediction);
+        //write_file("data/" + name + "_test", x_test, y_test, prediction);
+
+        // EXP_SMOOTHING
+
 
     }
 
