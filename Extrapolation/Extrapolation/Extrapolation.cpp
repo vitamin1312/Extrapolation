@@ -5,6 +5,7 @@
 #include <chrono>
 #include "math.h"
 #include "mnk_reg.h"
+#include "mnk_gradient.h"
 
 
 
@@ -137,13 +138,7 @@ int main()
     for (std::string& name : file_names) {
         auto x_y = read_file("data/" + name);
 
-<<<<<<< Updated upstream
-        mnk_reg LSE(5, 0.7);
 
-=======
-        
-        // data
->>>>>>> Stashed changes
         x = x_y.first;
         y = x_y.second;
         auto x_train_test = split_vector(x);
@@ -153,16 +148,34 @@ int main()
         y_train = y_train_test.first;
         y_test = y_train_test.second;
 
+
         // LSE with regularisation
-        mnk_reg LSE(-1, 0);  // 3 100
+        mnk_reg LSE_REG(3, 100);  // 3 100
 
-        auto start = std::chrono::high_resolution_clock::now();
-        prediction = LSE.fit_predict(x_train, y_train, x_test);
-        auto stop = std::chrono::high_resolution_clock::now();
+        auto start1 = std::chrono::high_resolution_clock::now();
+        prediction = LSE_REG.fit_predict(x_train, y_train, x_test);
+        auto stop1 = std::chrono::high_resolution_clock::now();
 
-        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+        auto duration1 = std::chrono::duration_cast<std::chrono::microseconds>(stop1 - start1);
 
-        std::cout << "LSE working: " << duration.count() << " microseconds" << std::endl;
+        std::cout << "LSE_REG working: " << duration1.count() << " microseconds" << std::endl;
+        std::cout << "mean absolute error in file " << name << ": " << mae(y_test, prediction) << std::endl;
+        std::cout << "r2 score in file " << name << ": " << r2_score(y_test, prediction) << std::endl;
+        std::cout << "SMAPE in file " << name << ": " << SMAPE(y_test, prediction) << "%" << std::endl << std::endl;
+
+        write_file("data/" + name + "_test", x_test, y_test, prediction);
+
+
+        // LSE with GD
+        mnk_gradient LSE;
+
+        auto start2 = std::chrono::high_resolution_clock::now();
+        prediction = LSE.PredictValues(x_train, y_train, x_test);
+        auto stop2 = std::chrono::high_resolution_clock::now();
+
+        auto duration2 = std::chrono::duration_cast<std::chrono::microseconds>(stop2 - start2);
+
+        std::cout << "LSE_GRAD working: " << duration2.count() << " microseconds" << std::endl;
         std::cout << "mean absolute error in file " << name << ": " << mae(y_test, prediction) << std::endl;
         std::cout << "r2 score in file " << name << ": " << r2_score(y_test, prediction) << std::endl;
         std::cout << "SMAPE in file " << name << ": " << SMAPE(y_test, prediction) << "%" << std::endl << std::endl;

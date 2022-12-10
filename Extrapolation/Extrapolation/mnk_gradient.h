@@ -4,9 +4,9 @@
 class mnk_gradient
 {
 private:
-	int power=1;
-	int niter=100;
-	double lmd=0.01;
+	int power=3;
+	int niter=10000;
+	double lmd=0.0000000000001;
 	std::vector<double> params;
 public:
 
