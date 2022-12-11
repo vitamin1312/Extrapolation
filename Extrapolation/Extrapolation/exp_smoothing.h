@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <list>
+#include <vector>
 
 const float ErrIncorrectAlpha = -1.0;
 
@@ -13,7 +14,7 @@ const float ErrIncorrectAlpha = -1.0;
 
 @return ѕрогнозное значение.
 */
-float exponential_smoothing(std::list<float> time_series, float alpha, float s0) {
+float exponential_smoothing(std::vector<double> time_series, float alpha, float s0) {
 	if (alpha > 1 || alpha < 0) {
 		// если параметр alpha задан не корректно, возвращаетс€ ошибка
 		return ErrIncorrectAlpha;
@@ -22,7 +23,7 @@ float exponential_smoothing(std::list<float> time_series, float alpha, float s0)
 	float predict_value = s0;
 	float fact_value;
 
-	for (std::list<float>::iterator r = time_series.begin(); r != time_series.end(); r++) {
+	for (std::vector<double>::iterator r = time_series.begin(); r != time_series.end(); r++) {
 		fact_value = *r;
 		predict_value = alpha * fact_value + (1 - alpha) * predict_value;
 	}
@@ -30,10 +31,10 @@ float exponential_smoothing(std::list<float> time_series, float alpha, float s0)
 	return predict_value;
 }
 
-int main()
+int smooth()
 {
 	// тестовые значени€
-	std::list<float> ts = {  };
+	std::vector<double> ts = {  };
 	float predict_value;
 
 	// строим модель 
