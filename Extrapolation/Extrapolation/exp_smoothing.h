@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-#include <list>
 #include <vector>
 
 const float ErrIncorrectAlpha = -1.0;
@@ -14,39 +13,7 @@ const float ErrIncorrectAlpha = -1.0;
 
 @return ѕрогнозное значение.
 */
-float exponential_smoothing(std::vector<double> time_series, float alpha, float s0) {
-	if (alpha > 1 || alpha < 0) {
-		// если параметр alpha задан не корректно, возвращаетс€ ошибка
-		return ErrIncorrectAlpha;
-	}
-
-	float predict_value = s0;
-	float fact_value;
-
-	for (std::vector<double>::iterator r = time_series.begin(); r != time_series.end(); r++) {
-		fact_value = *r;
-		predict_value = alpha * fact_value + (1 - alpha) * predict_value;
-	}
-
-	return predict_value;
-}
-
-int smooth()
-{
-	// тестовые значени€
-	std::vector<double> ts = {  };
-	float predict_value;
-
-	// строим модель 
-	predict_value = exponential_smoothing(ts, 1, 0);
-
-	if (predict_value == ErrIncorrectAlpha) {
-		std::cout << "Alpha must be between 0 and 1" << std::endl;
-	}
-	else {
-		std::cout << "Predict value: " << predict_value << std::endl;
-	}
+float exponential_smoothing(std::vector<double> x, std::vector<double> y, std::vector<double> x1, float alpha, float s0);
 
 
-	return 0;
-}
+
