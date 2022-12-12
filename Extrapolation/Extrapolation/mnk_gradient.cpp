@@ -6,15 +6,13 @@ void mnk_gradient::Minimize(vector<double> X, vector<double> Y)
 {
 	vector<double> grad(power+1);
 	vector<double> gsum(power+1);
-	for (int i(0); i < power+1; i++)
-	{
-		params.push_back(i + 1);
-	}
+	params.resize(power + 1, 0.001);
+	
 
 	
 
-	int iter = 0;
-	while (iter < niter)
+
+	for (int iter(0); iter < niter; iter++)
 	{
 		for (int p(0); p<params.size(); p++)
 		{
@@ -31,7 +29,6 @@ void mnk_gradient::Minimize(vector<double> X, vector<double> Y)
 		}
 		for (int k(0); k < params.size(); k++)
 			params[k] -= ((double)(lmd/sqrt(gsum[k]))) * grad[k];
-		iter++;
 	}
 }
 

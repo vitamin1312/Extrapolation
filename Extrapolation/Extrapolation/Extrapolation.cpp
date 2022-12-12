@@ -6,6 +6,7 @@
 #include "math.h"
 #include "mnk_reg.h"
 #include "mnk_gradient.h"
+#include "exp_smoothing.h"
 
 
 
@@ -191,7 +192,7 @@ int main()
 
 
         // LSE with GD
-        mnk_gradient LSE(3, 100, 1000);
+        mnk_gradient LSE(3, 10, 1000);
 
         auto start2 = std::chrono::high_resolution_clock::now();
         prediction = LSE.PredictValues(x_train, y_train, x_test);
@@ -208,34 +209,34 @@ int main()
 
         // EXP_SMOOTHING
 
-        auto start3 = std::chrono::high_resolution_clock::now();
-        //prediction = LSE.EXP_SMOOTHING(x_train, y_train, x_test);
-        auto stop3 = std::chrono::high_resolution_clock::now();
+        //auto start3 = std::chrono::high_resolution_clock::now();
+        ////prediction = exponential_smoothing(x_train, y_train, x_test, 0.5, 1);
+        //auto stop3 = std::chrono::high_resolution_clock::now();
 
-        auto duration3 = std::chrono::duration_cast<std::chrono::microseconds>(stop3- start3);
+        //auto duration3 = std::chrono::duration_cast<std::chrono::microseconds>(stop3- start3);
 
-        std::cout << "LSE_GRAD working: " << duration2.count() << " microseconds" << std::endl;
-        std::cout << "mean absolute error in file " << name << ": " << mae(y_test, prediction) << std::endl;
-        std::cout << "r2 score in file " << name << ": " << r2_score(y_test, prediction) << std::endl;
-        std::cout << "SMAPE in file " << name << ": " << SMAPE(y_test, prediction) << "%" << std::endl << std::endl;
+        //std::cout << "LSE_GRAD working: " << duration2.count() << " microseconds" << std::endl;
+        //std::cout << "mean absolute error in file " << name << ": " << mae(y_test, prediction) << std::endl;
+        //std::cout << "r2 score in file " << name << ": " << r2_score(y_test, prediction) << std::endl;
+        //std::cout << "SMAPE in file " << name << ": " << SMAPE(y_test, prediction) << "%" << std::endl << std::endl;
 
-        //write_file("data/" + name + "_test", x_test, y_test, prediction);
+        ////write_file("data/" + name + "_test", x_test, y_test, prediction);
 
 
-        // LINEAR EXT
+        //// LINEAR EXT
 
-        auto start4 = std::chrono::high_resolution_clock::now();
-        //prediction = LSE.LINEAR_EXTRAPOLATION(x_train, y_train, x_test);
-        auto stop4 = std::chrono::high_resolution_clock::now();
+        //auto start4 = std::chrono::high_resolution_clock::now();
+        ////prediction = LSE.LINEAR_EXTRAPOLATION(x_train, y_train, x_test);
+        //auto stop4 = std::chrono::high_resolution_clock::now();
 
-        auto duration4 = std::chrono::duration_cast<std::chrono::microseconds>(stop4 - start4);
+        //auto duration4 = std::chrono::duration_cast<std::chrono::microseconds>(stop4 - start4);
 
-        std::cout << "LSE_GRAD working: " << duration2.count() << " microseconds" << std::endl;
-        std::cout << "mean absolute error in file " << name << ": " << mae(y_test, prediction) << std::endl;
-        std::cout << "r2 score in file " << name << ": " << r2_score(y_test, prediction) << std::endl;
-        std::cout << "SMAPE in file " << name << ": " << SMAPE(y_test, prediction) << "%" << std::endl << std::endl;
+        //std::cout << "LSE_GRAD working: " << duration2.count() << " microseconds" << std::endl;
+        //std::cout << "mean absolute error in file " << name << ": " << mae(y_test, prediction) << std::endl;
+        //std::cout << "r2 score in file " << name << ": " << r2_score(y_test, prediction) << std::endl;
+        //std::cout << "SMAPE in file " << name << ": " << SMAPE(y_test, prediction) << "%" << std::endl << std::endl;
 
-        //write_file("data/" + name + "_test", x_test, y_test, prediction);
+        ////write_file("data/" + name + "_test", x_test, y_test, prediction);
     }
 
     return 0;
