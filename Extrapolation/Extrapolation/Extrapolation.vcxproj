@@ -127,7 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Extrapolation\Extrapolation\Extrapolation\linear_extrapolate.cpp" />
+    <ClCompile Include="linear_extrapolate.cpp" />
     <ClCompile Include="exp_smoothing.cpp" />
     <ClCompile Include="Extrapolation.cpp" />
     <ClCompile Include="mnk_gradient.cpp" />
@@ -135,7 +135,7 @@
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Extrapolation\Extrapolation\Extrapolation\linear_extrapolation.h" />
+    <ClInclude Include="linear_extrapolate.h" />
     <ClInclude Include="exp_smoothing.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="mnk_gradient.h" />
