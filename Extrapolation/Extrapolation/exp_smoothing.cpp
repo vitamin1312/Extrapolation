@@ -2,18 +2,25 @@
 #include <iostream>
 #include <vector>
 
-float exponential_smoothing(std::vector<double> x, std::vector<double> y, std::vector<double> x1, float alpha, float s0) {
+std::vector<double> exponential_smoothing(std::vector<double> x, std::vector<double> y, std::vector<double> x1, double alpha) {
 	if (alpha > 1 || alpha < 0) {
-		// если параметр alpha задан не корректно, возвращается ошибка
-		return ErrIncorrectAlpha;
+		std::vector <double> result = {};
+	/// если параметр alpha задан не корректно, возвращается ошибка
+	return result;
 	}
 
-	float predict_value = s0;
-	float fact_value;
+	std::vector<double> prediction;
 
-	for (std::vector<double>::iterator r = x.begin(); r != x.end(); r++) {
-		fact_value = *r;
+	double predict_value = y[y.size() - 1];
+	double fact_value = y[y.size() - 2];
+
+	int len = x1.size();
+
+	for (int i(0); i < len;i++) {
+
 		predict_value = alpha * fact_value + (1 - alpha) * predict_value;
+		prediction.push_back(predict_value);
+		fact_value = predict_value;
 	}
 
 	//for (std::vector<double>::iterator r = y.begin(); r != y.end(); r++) {  // КАК БУДТО ДЛЯ У
@@ -21,5 +28,5 @@ float exponential_smoothing(std::vector<double> x, std::vector<double> y, std::v
 	//	predict_value = alpha * fact_value + (1 - alpha) * predict_value;
 	//}
 
-	return predict_value;
+	return prediction;
 }
