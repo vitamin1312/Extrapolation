@@ -40,7 +40,7 @@ std::vector<double> mnk_gradient::Predicted(std::vector<double> X)
 	{
 		double sum = 0;
 		for (int i(0); i < params.size(); i++)
-			sum += params[i] * pow(X[i], i);
+			sum += params[i] * pow(X[k], i);
 		pred[k]=sum;
 	}
 
