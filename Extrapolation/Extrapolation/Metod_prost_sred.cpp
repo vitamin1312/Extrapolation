@@ -18,6 +18,7 @@ std::vector<double> middle_extrapolate(std::vector<double> X, std::vector<double
     const double y_med = diff_sum / N; // полученное среднее значение уровней ряда
 
     double delta;
+    delta=0;
 
     for (size_t i = 0; i < X.size(); ++i) // ищем среднеквадратическое отклонение
     {
