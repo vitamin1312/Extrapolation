@@ -27,6 +27,9 @@
     <ClCompile Include="exp_smoothing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\Extrapolation\Extrapolation\Extrapolation\linear_extrapolate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mnk_reg.h">
@@ -36,6 +39,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="exp_smoothing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Extrapolation\Extrapolation\Extrapolation\linear_extrapolation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
