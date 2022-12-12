@@ -7,6 +7,7 @@
     <ClCompile Include="mnk_gradient.cpp" />
     <ClCompile Include="mnk_reg.cpp" />
     <ClCompile Include="utils.cpp" />
+    <ClCompile Include="middle_extrapolate.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="linear_extrapolate.h" />
@@ -14,5 +15,6 @@
     <ClInclude Include="utils.h" />
     <ClInclude Include="mnk_gradient.h" />
     <ClInclude Include="mnk_reg.h" />
+    <ClInclude Include="middle_extrapolate.h" />
   </ItemGroup>
 </Project>

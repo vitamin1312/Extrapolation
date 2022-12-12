@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <chrono>
 
 
 
@@ -23,3 +24,5 @@ std::pair<std::vector<double>, std::vector<double>> read_file(std::string file_p
 void write_file(std::string file_path, std::vector<double> x_test, std::vector<double> y_test, std::vector<double> prediction);
 
 std::pair<std::vector<double>, std::vector<double>> split_vector(std::vector<double> vect, double split);
+
+void print_results(int time, std::string name, std::vector<double> y_test, std::vector<double> prediction);

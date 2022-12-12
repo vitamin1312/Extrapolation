@@ -141,3 +141,11 @@ std::pair<std::vector<double>, std::vector<double>> split_vector(std::vector<dou
 
     return std::make_pair(down, up);
 }
+
+
+void print_results(int time, std::string name, std::vector<double> y_test, std::vector<double> prediction) {
+    std::cout << "Working: " << time << " microseconds" << std::endl;
+    std::cout << "Mean absolute error in file " << name << ": " << mae(y_test, prediction) << std::endl;
+    std::cout << "r2 score in file " << name << ": " << r2_score(y_test, prediction) << std::endl;
+    std::cout << "SMAPE in file " << name << ": " << SMAPE(y_test, prediction) << "%" << std::endl << std::endl;
+}
