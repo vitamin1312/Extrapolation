@@ -65,7 +65,7 @@ int main()
 
          //EXP_SMOOTHING
         auto start3 = std::chrono::high_resolution_clock::now();
-        prediction = exponential_smoothing(x_train, y_train, x_test, 0.5);
+        prediction = exponential_smoothing(x_train, y_train, x_test, 0.85);
         auto stop3 = std::chrono::high_resolution_clock::now();
 
         auto duration3 = std::chrono::duration_cast<std::chrono::microseconds>(stop3- start3);
@@ -91,7 +91,7 @@ int main()
         std::cout << "r2 score in file " << name << ": " << r2_score(y_test, prediction) << std::endl;
         std::cout << "SMAPE in file " << name << ": " << SMAPE(y_test, prediction) << "%" << std::endl << std::endl;
 
-        //write_file("data/" + name + "_test", x_test, y_test, prediction);
+        write_file("data/" + name + "_test", x_test, y_test, prediction);
     }
 
     return 0;
