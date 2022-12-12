@@ -48,7 +48,7 @@ int main()
 
 
         // LSE with GD
-        mnk_gradient LSE(3, 100, 1000);
+        mnk_gradient LSE(3, 10, 1000);
 
         auto start2 = std::chrono::high_resolution_clock::now();
         prediction = LSE.PredictValues(x_train, y_train, x_test);
@@ -86,7 +86,7 @@ int main()
 
         auto duration4 = std::chrono::duration_cast<std::chrono::microseconds>(stop4 - start4);
 
-        std::cout << "LINEAR EXT working: " << duration2.count() << " microseconds" << std::endl;
+        std::cout << "LINEAR EXT working: " << duration4.count() << " microseconds" << std::endl;
         std::cout << "mean absolute error in file " << name << ": " << mae(y_test, prediction) << std::endl;
         std::cout << "r2 score in file " << name << ": " << r2_score(y_test, prediction) << std::endl;
         std::cout << "SMAPE in file " << name << ": " << SMAPE(y_test, prediction) << "%" << std::endl << std::endl;
