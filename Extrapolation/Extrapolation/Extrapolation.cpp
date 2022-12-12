@@ -192,7 +192,7 @@ int main()
 
 
         // LSE with GD
-        mnk_gradient LSE(3, 100, 1000);
+        mnk_gradient LSE(3, 10, 1000);
 
         auto start2 = std::chrono::high_resolution_clock::now();
         prediction = LSE.PredictValues(x_train, y_train, x_test);
