@@ -33,4 +33,9 @@ for file in files:
 
         plt.figure()
         plt.plot(x, y)
+        if file == '4':
+            plt.axvline(x=35, c='red')
+        else:
+            plt.axvline(x=17.5, c='red')
+
         plt.savefig(file)

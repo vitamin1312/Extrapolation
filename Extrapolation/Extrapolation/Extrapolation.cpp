@@ -40,12 +40,8 @@ int main()
 
         auto duration1 = std::chrono::duration_cast<std::chrono::microseconds>(stop1 - start1);
 
-        std::cout << "LSE REG working:" << std::endl;
-        
+        std::cout << "LSE REG:" << std::endl;
         print_results(duration1.count(), name, y_test, prediction);
-
-        //write_file("data/" + name + "_test", x_test, y_test, prediction);
-
 
         // LSE with GD
         mnk_gradient LSE(3, 10, 1000);
@@ -58,8 +54,6 @@ int main()
 
         std::cout << "LSE GD:" << std::endl;
         print_results(duration2.count(), name, y_test, prediction);
-        //write_file("data/" + name + "_test", x_test, y_test, prediction);
-
 
         //EXP_SMOOTHING
         auto start3 = std::chrono::high_resolution_clock::now();
@@ -68,35 +62,29 @@ int main()
 
         auto duration3 = std::chrono::duration_cast<std::chrono::microseconds>(stop3- start3);
 
-        std::cout << "EXP SMOOTHING working:" << std::endl;
+        std::cout << "EXP SMOOTHING:" << std::endl;
         print_results(duration3.count(), name, y_test, prediction);
-        //write_file("data/" + name + "_test", x_test, y_test, prediction);
 
 
         // LINEAR EXT
-
         auto start4 = std::chrono::high_resolution_clock::now();
         prediction = linear_extrapolate(x_train, y_train, x_test);
         auto stop4 = std::chrono::high_resolution_clock::now();
 
         auto duration4 = std::chrono::duration_cast<std::chrono::microseconds>(stop4 - start4);
 
-        std::cout << "LINEAR EXT working:" << std::endl;
+        std::cout << "LINEAR EXT:" << std::endl;
         print_results(duration4.count(), name, y_test, prediction);
-        //write_file("data/" + name + "_test", x_test, y_test, prediction);
-
 
         // MIDDLE EXT
-
         auto start5 = std::chrono::high_resolution_clock::now();
         prediction = middle_extrapolate(x_train, y_train, x_test);
         auto stop5 = std::chrono::high_resolution_clock::now();
 
         auto duration5 = std::chrono::duration_cast<std::chrono::microseconds>(stop5 - start5);
 
-        std::cout << "MIDDLE EXT working: " << std::endl;
+        std::cout << "MIDDLE EXT: " << std::endl;
         print_results(duration5.count(), name, y_test, prediction);
-        write_file("data/" + name + "_test", x_test, y_test, prediction);
     }
 
     return 0;
