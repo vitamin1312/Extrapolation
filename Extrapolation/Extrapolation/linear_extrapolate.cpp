@@ -17,7 +17,7 @@ std::vector<double> linear_extrapolate(std::vector<double> X, std::vector<double
 
     std::vector<double> result;
 
-    for ( double x : x_predict)
+    for ( double x)
     {
         result.push_back((x - last_x) * delta + last_y);
     }
