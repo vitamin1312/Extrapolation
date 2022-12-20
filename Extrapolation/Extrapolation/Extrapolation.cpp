@@ -13,7 +13,6 @@ int main()
 {
 
     std::vector<std::string> file_names = {"0", "1", "2", "3", "4"};
-
     std::vector<double> x, y, x_train, y_train, x_test, y_test, prediction;
 
 
